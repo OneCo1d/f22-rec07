@@ -9,8 +9,9 @@
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(0, 0, 0, 0.8);
   padding: 20px;
-  font-size: 30px;
+  font-size: 1.6rem;
   height: 25vmin;
+  line-height: 25vmin;
   text-align: center;
 }
 
@@ -20,11 +21,18 @@
 
 #instructions {
   height: 5vh;
-  background-color: white;
+  line-height: 5vh;
+  background-color: #f5f5f5;
   padding: 0px;
   margin: 0px;
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  font-size: 1.6rem;
+  color: #555;
+  font-family: Arial, sans-serif;
 }
 
 #bottombar button {

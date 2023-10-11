@@ -5,14 +5,36 @@ import java.util.Arrays;
 public class GameState {
 
     private final Cell[] cells;
+    private final String status;
 
-    private GameState(Cell[] cells) {
+    private GameState(Cell[] cells, String status) {
         this.cells = cells;
+        this.status = status;
     }
 
     public static GameState forGame(Game game) {
         Cell[] cells = getCells(game);
-        return new GameState(cells);
+        Player winner = game.getWinner();
+        String status;
+        boolean foundPlayableCell = false;
+
+        if (winner != null) {
+            status = winner.toString() + " has won!";
+        } else {
+            for (Cell cell : cells) {
+                if (cell.isPlayable()) {
+                    foundPlayableCell = true;
+                    break;
+                }
+            }
+
+            if (foundPlayableCell) {
+                status = game.getPlayer().toString() + "'s turn";
+            } else {
+                status = "No playable cell, please start a new game!";
+            }
+        }
+        return new GameState(cells, status);
     }
 
     public Cell[] getCells() {
@@ -26,8 +48,11 @@ public class GameState {
     @Override
     public String toString() {
         return """
-                { "cells": %s}
-                """.formatted(Arrays.toString(this.cells));
+                {
+                    "cells": %s,
+                    "status": "%s"
+                }
+                """.formatted(Arrays.toString(this.cells), this.status);
     }
 
     private static Cell[] getCells(Game game) {
@@ -88,7 +113,7 @@ class Cell {
                     "text": "%s",
                     "playable": %b,
                     "x": %d,
-                    "y": %d 
+                    "y": %d
                 }
                 """.formatted(this.text, this.playable, this.x, this.y);
     }
